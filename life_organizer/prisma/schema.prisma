@@ -20,27 +20,33 @@ model User {
   email     String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  recipes Recipe[]
 }
 
 model Recipe {
-  rec_id      Int      @id @default(autoincrement())
-  recipe_name String
-  recipe_url  String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  rec_id        Int      @id @default(autoincrement())
+  recipe_name   String
+  recipe_source String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
-  ingredients Ingredients[]
+  ingredients Ingredient[]
   steps       RecipeSteps[]
+  User        User          @relation(fields: [userRec_id], references: [rec_id])
+  userRec_id  Int
 }
 
-model Ingredients {
-  rec_id             Int    @id @default(autoincrement())
-  ingredients_name   String
-  ingredients_amount String
+model Ingredient {
+  rec_id            Int    @id @default(autoincrement())
+  ingredient_name   String
+  ingredient_amount String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  recipies  Recipe[]
+
+  Recipe       Recipe @relation(fields: [recipeRec_id], references: [rec_id])
+  recipeRec_id Int
 }
 
 model RecipeSteps {

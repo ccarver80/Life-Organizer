@@ -1,5 +1,5 @@
 
-import NextAuth from "next-auth";
+import NextAuth, { User } from "next-auth";
 import { PrismaClient } from "@prisma/client";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { authConfig } from "./auth.config";
@@ -38,7 +38,7 @@ export const {
                 if(user){
                     const correctPassword = await bcrypt.compare(credentials.password, user.password)
                     if(correctPassword){
-                        return user
+                        return user as User
                     }
                     return null
                 }
@@ -50,10 +50,20 @@ export const {
     ],
     
     callbacks:{
-        async jwt({token, account}){
+        async jwt({token, user}){
+            if(user){
+                token.rec_id = user.rec_id
+                token.username = user.username
+                token.email = user.email 
+            }
+            
             return token
         },
         async session({session, token, user}){
+            if(token){
+                session.rec_id = token.rec_id
+                session.username = token.username
+            }
             return session
         },
         

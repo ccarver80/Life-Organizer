@@ -9,7 +9,7 @@ export default function Modal({
   className: string;
   buttonName: string;
   modalName: string;
-  children: JSX.Element;
+  children: React.ReactNode;
 }) {
   return (
     <>

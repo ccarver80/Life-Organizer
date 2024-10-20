@@ -5,6 +5,7 @@ import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import Form from "../common/Form";
 
 export default function LoginForm() {
   const submitUser = async (formData: FormData) => {
@@ -29,42 +30,21 @@ export default function LoginForm() {
     }
   };
   return (
-    <div className="flex flex-col p-5 bg-white bg-opacity-80 rounded-xl">
-      <div className="text-2xl text-center">
-        <h3>
-          <b>Login</b>
-        </h3>
-      </div>
-      <div className="flex flex-col w-1/2 mx-auto mt-5 text-center">
-        <form
-          id="loginForm"
-          className="flex flex-col font-bold gap-y-5"
-          action={submitUser}
-        >
-          <Input
-            inputClassName="border border-black p-2 rounded"
-            type="text"
-            name="username"
-            label="Username *"
-            required
-            placeholder="johndoe89"
-          />
-          <Input
-            inputClassName="border border-black p-2 rounded"
-            name="password"
-            type="Password"
-            label="Create A Password *"
-            required
-            placeholder="************"
-          />
-          <button
-            className="p-5 bg-blue-400 text-white mx-auto mt-5 text-center rounded-xl w-fit"
-            type="submit"
-          >
-            Login
-          </button>
-        </form>
-      </div>
-    </div>
+    <Form formTitle="Log In" submitForm={submitUser} submitButtonName="Log In">
+      <Input
+        type="text"
+        name="username"
+        label="Username *"
+        required
+        placeholder="johndoe89"
+      />
+      <Input
+        name="password"
+        type="Password"
+        label="Create A Password *"
+        required
+        placeholder="************"
+      />
+    </Form>
   );
 }

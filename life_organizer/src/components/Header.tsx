@@ -1,11 +1,11 @@
 import { signOut } from "next-auth/react";
 
-export default function DashboardHeader() {
+export default function DashboardHeader({ pathname }: { pathname: string }) {
   return (
     <>
       {/* Header Component */}
       <div className="flex items-center flex-shrink-0 h-16 px-8 border-b border-gray-300">
-        <h1 className="text-lg font-medium">Page Title</h1>
+        <h1 className="text-lg font-medium">{pathname}</h1>
         <button className="flex items-center justify-center h-10 px-4 ml-auto text-sm font-medium rounded hover:bg-gray-300">
           Action 1
         </button>
