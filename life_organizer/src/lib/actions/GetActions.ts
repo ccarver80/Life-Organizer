@@ -22,7 +22,26 @@ export async function getIngredients(recipeId:number) {
         where:{
             Recipe:{
                 rec_id: recipeId
+            
+            },
+        },
+        
+    })
+
+    
+    return ingredients
+}
+
+
+export async function getSteps(recipeId:number) {
+    const ingredients = await prisma.recipeStep.findMany({
+        where:{
+            Recipe:{
+                rec_id: recipeId
             }
+        },
+        orderBy:{
+            step_number: 'asc'
         }
     })
 

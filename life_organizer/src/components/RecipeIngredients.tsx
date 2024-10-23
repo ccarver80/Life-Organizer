@@ -1,5 +1,5 @@
 "use client";
-import { removeItem } from "@/lib/actions/DeleteActions";
+import { removeIngredient } from "@/lib/actions/DeleteActions";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 interface Ingredients {
@@ -40,7 +40,7 @@ export default function RecipieIngredients({
                   <button
                     className="text-red-400 ml-2"
                     onClick={async () => {
-                      const remove = await removeItem(ingredient.rec_id);
+                      const remove = await removeIngredient(ingredient.rec_id);
                       if (remove?.rec_id) {
                         toast.success("Ingredient Deleted!");
                         router.refresh();

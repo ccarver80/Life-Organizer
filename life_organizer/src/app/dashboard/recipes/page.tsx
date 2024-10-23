@@ -1,13 +1,31 @@
 import Modal from "@/components/common/Modal";
+import NextTable from "@/components/common/Table";
 import AddIngredientForm from "@/components/forms/addIngredientForm";
 import AddRecipeForm from "@/components/forms/addRecipeForm";
+import AddRecipeStepForm from "@/components/forms/addRecipeStepForm";
 import RecipieIngredients from "@/components/RecipeIngredients";
+import RecipeSteps from "@/components/RecipeSteps";
 import RemoveRecipe from "@/components/RemoveRecipe";
-import { removeItem } from "@/lib/actions/DeleteActions";
-import { getRecipes, getIngredients } from "@/lib/actions/GetActions";
+
+import { getRecipes, getIngredients, getSteps } from "@/lib/actions/GetActions";
+import { Table, TableColumn, TableHeader } from "@nextui-org/table";
 
 export default async function Page() {
   const recipes = await getRecipes();
+
+  const columns = [
+    { key: "recipe_name", label: "Recipe Name" },
+    { key: "recipe_source", label: "Recipe Source" },
+  ];
+  const rows = new Array();
+
+  recipes.map((recipe) => {
+    rows.push({
+      key: String(recipe.rec_id),
+      recipe_name: recipe.recipe_name,
+      recipe_source: recipe.recipe_source,
+    });
+  });
 
   return (
     <>
@@ -23,41 +41,7 @@ export default async function Page() {
       {/* Map over recipes and show on dashboard */}
       <div className="ml-5 mt-10 flex flex-col gap-y-3">
         <h2>Recipes:</h2>
-        {recipes
-          ? recipes.map(async (recipe) => {
-              const ingredients = await getIngredients(recipe.rec_id);
-
-              return (
-                <div className="flex gap-x-4">
-                  <Modal
-                    buttonName={recipe.recipe_name}
-                    className="text-2xl ml-5 w-fit"
-                    modalName={`recipe${recipe.rec_id.toString()}`}
-                  >
-                    {/* List of all ingredients for recipe */}
-                    <RecipieIngredients
-                      recipe_name={recipe.recipe_name}
-                      ingredients={ingredients}
-                      recipeSource={recipe.recipe_source}
-                    />
-
-                    {/* Add Ingredients */}
-                    <Modal
-                      buttonName="Add Ingredient"
-                      className="bg-yellow-300 text-xl"
-                      modalName={`addIngredient ${recipe.rec_id}`}
-                    >
-                      <AddIngredientForm
-                        recipeId={recipe.rec_id}
-                        recipeName={recipe.recipe_name}
-                      />
-                    </Modal>
-                  </Modal>
-                  <RemoveRecipe recipeId={recipe.rec_id} />
-                </div>
-              );
-            })
-          : ""}
+        <NextTable rows={rows} columns={columns} />
       </div>
     </>
   );

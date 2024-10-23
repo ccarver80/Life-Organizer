@@ -30,3 +30,31 @@ export async function submitIngredients(ingredients:Ingredient[], recipeId:numbe
         console.log(error)
     }
 }
+
+
+export async function submitStep(formData:FormData, recipeId:number) {
+    try {
+
+
+        const create = await prisma.recipeStep.create({
+            data: {
+                step_number: Number(formData.get("step_number")),
+                step_description: formData.get("step_description") as string,
+                Recipe:{
+                    connect:{
+                        rec_id: recipeId
+                    }
+                }
+            }
+        })
+
+        return create
+
+
+
+    } catch (error) {
+        console.log(error)
+    }
+    
+    
+}

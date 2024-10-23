@@ -32,8 +32,8 @@ model Recipe {
   updatedAt     DateTime @updatedAt
 
   ingredients Ingredient[]
-  steps       RecipeSteps[]
-  User        User          @relation(fields: [userRec_id], references: [rec_id])
+  steps       RecipeStep[]
+  User        User         @relation(fields: [userRec_id], references: [rec_id])
   userRec_id  Int
 }
 
@@ -49,13 +49,13 @@ model Ingredient {
   recipeRec_id Int
 }
 
-model RecipeSteps {
+model RecipeStep {
   rec_id           Int    @id @default(autoincrement())
   step_number      Int
   step_description String
 
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-  Recipe       Recipe?  @relation(fields: [recipeRec_id], references: [rec_id])
-  recipeRec_id Int?
+  Recipe       Recipe   @relation(fields: [recipeRec_id], references: [rec_id])
+  recipeRec_id Int
 }
