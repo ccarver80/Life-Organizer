@@ -11,7 +11,7 @@ export default function DashboardHeader({ pathname }: { pathname: string }) {
         </button>
         <button
           onClick={() => signOut()}
-          className="flex items-center justify-center h-10 px-4 ml-2 text-sm font-medium bg-gray-200 rounded hover:bg-gray-300"
+          className="flex items-center justify-center h-10 px-4 ml-2 text-sm font-bold bg-red-200 rounded hover:bg-gray-300"
         >
           Logout
         </button>

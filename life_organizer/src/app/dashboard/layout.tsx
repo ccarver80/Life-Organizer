@@ -1,6 +1,7 @@
 "use client";
 import DashboardHeader from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
+import { NextUIProvider } from "@nextui-org/react";
 
 import { usePathname } from "next/navigation";
 
@@ -16,19 +17,22 @@ export default function DashboardLayout({
   const properPathName = ((firstLetter as string) + remainingLetters) as string; // combine first letter and remaining letters
 
   return (
-    <section>
-      <div className="flex w-screen h-screen text-gray-700">
-        {/* Sidebar Component */}
-        <Sidebar />
+    <NextUIProvider>
+      <section>
+        <div className="flex w-screen h-screen text-gray-700">
+          {/* Sidebar Component */}
+          <Sidebar />
 
-        <div className="flex flex-col flex-grow">
-          <DashboardHeader pathname={properPathName} />
-          <div className="border-2 m-2 h-full rounded-xl border-slate-400">
-            {children}
+          <div className="flex flex-col flex-grow">
+            <DashboardHeader pathname={properPathName} />
+            <div className="flex border-2 m-2 h-full rounded-xl border-slate-400">
+              {children}
+            </div>
           </div>
+
+          {/* Component End  */}
         </div>
-        {/* Component End  */}
-      </div>
-    </section>
+      </section>
+    </NextUIProvider>
   );
 }

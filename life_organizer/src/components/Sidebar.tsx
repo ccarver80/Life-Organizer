@@ -68,7 +68,7 @@ export default function Sidebar() {
 
           <Link
             className="flex items-center flex-shrink-0 h-10 px-2 gap-4 text-2xl font-medium rounded hover:bg-gray-300"
-            href="/dashboard/recipes"
+            href="/dashboard/budget"
           >
             <svg
               className="w-10 h-10"
@@ -85,12 +85,12 @@ export default function Sidebar() {
               />
             </svg>
 
-            <span className="leading-none">Recipes</span>
+            <span className="leading-none">Budget</span>
           </Link>
 
           <Link
             className="flex items-center flex-shrink-0 h-10 px-2 gap-4 text-2xl font-medium rounded hover:bg-gray-300"
-            href="/dashboard/"
+            href="/dashboard/recipies/"
           >
             <svg
               className="w-10 h-10"
@@ -107,7 +107,7 @@ export default function Sidebar() {
               />
             </svg>
 
-            <span className="leading-none">Testing</span>
+            <span className="leading-none">Recipes</span>
           </Link>
         </div>
       </div>
