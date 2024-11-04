@@ -30,7 +30,12 @@ export default function LoginForm() {
     }
   };
   return (
-    <Form formTitle="Log In" submitForm={submitUser} submitButtonName="Log In">
+    <Form
+      id="loginForm"
+      formTitle="Log In"
+      submitForm={submitUser}
+      submitButtonName="Log In"
+    >
       <Input
         type="text"
         name="username"
