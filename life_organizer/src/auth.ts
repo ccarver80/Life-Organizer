@@ -67,5 +67,10 @@ export const {
             return session
         },
         
-    }
+    },
+    pages: {
+        signIn: '/dashboard',
+        signOut: '/',
+        // error: '/api/auth/error',
+    },
 }) 
