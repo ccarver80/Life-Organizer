@@ -36,7 +36,7 @@ export default async function middleware(req: NextRequest) {
     secret: process.env.AUTH_SECRET,
   });
 
-
+  console.log(session)
   const isProtected = path.includes('/dashboard');
 
   if (!session && isProtected) {
