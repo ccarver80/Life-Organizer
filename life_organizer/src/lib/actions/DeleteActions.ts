@@ -53,3 +53,28 @@ export async function removeRecipe(rec_id:number) {
         console.log(error)
     }
 }
+
+
+export async function deleteBudget() {
+    try {
+        const session = await auth()
+        // Get user id from session
+        const user_id = session?.rec_id
+
+        const deleteMany = await prisma.payDate.deleteMany({
+            where: {
+                userRec_id: user_id
+            }
+        })
+
+        const deleteBudget = await prisma.budget.delete({
+            where:{
+                userRec_id: user_id
+            }
+        })
+
+        return {message:"success"}
+    } catch (error) {
+        console.log(error)
+    }
+}

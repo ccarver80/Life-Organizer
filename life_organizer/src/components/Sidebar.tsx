@@ -90,7 +90,7 @@ export default function Sidebar() {
 
           <Link
             className="flex items-center flex-shrink-0 h-10 px-2 gap-4 text-2xl font-medium rounded hover:bg-gray-300"
-            href="/dashboard/recipies/"
+            href="/dashboard/recipes/"
           >
             <svg
               className="w-10 h-10"
