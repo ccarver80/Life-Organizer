@@ -34,6 +34,7 @@ export default async function middleware(req: NextRequest) {
   const session = await getToken({
     req,
     secret: process.env.AUTH_SECRET,
+    secureCookie: true
   });
 
   console.log(session)
