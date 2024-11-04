@@ -35,6 +35,7 @@ export default function SignUpForm() {
       formTitle="Sign up today!"
       submitForm={submitUser}
       submitButtonName="Sign Up"
+      id="signUpForm"
     >
       <div id="usernameDiv">
         <Input
