@@ -114,7 +114,7 @@ export default function Page() {
           <div className="flex flex-col">
             <div className="mx-auto">
               <h3 className="font-bold text-2xl">
-                Pay Period Type:{" "}
+                Pay Period Type:
                 <u className=" underline-offset-8">
                   {hasBudget.pay_period_type.charAt(0).toUpperCase() +
                     hasBudget.pay_period_type.slice(1)}
