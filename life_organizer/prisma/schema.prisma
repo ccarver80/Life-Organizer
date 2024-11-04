@@ -1,0 +1,103 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  rec_id    Int       @id @default(autoincrement())
+  username  String    @unique
+  password  String
+  email     String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  bills     Bill[]
+  recipes   Recipe[]
+  budget    Budget?
+  payDate   PayDate[]
+}
+
+//############## BUDGET ######################
+
+model Budget {
+  rec_id          Int      @id @default(autoincrement())
+  pay_period_type String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  User       User      @relation(fields: [userRec_id], references: [rec_id])
+  userRec_id Int       @unique
+  pay_dates  PayDate[]
+}
+
+model PayDate {
+  rec_id    Int      @id @default(autoincrement())
+  pay_date  DateTime
+  amount    Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  User         User   @relation(fields: [userRec_id], references: [rec_id])
+  userRec_id   Int
+  Budget       Budget @relation(fields: [budgetRec_id], references: [rec_id])
+  budgetRec_id Int
+}
+
+model Bill {
+  rec_id    Int      @id @default(autoincrement())
+  name      String
+  amount    Int?
+  due_date  DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  User       User @relation(fields: [userRec_id], references: [rec_id])
+  userRec_id Int
+}
+
+// ########### RECIPIES #####################
+
+model Recipe {
+  rec_id        Int      @id @default(autoincrement())
+  recipe_name   String
+  recipe_source String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  ingredients Ingredient[]
+  steps       RecipeStep[]
+  User        User         @relation(fields: [userRec_id], references: [rec_id])
+  userRec_id  Int
+}
+
+model Ingredient {
+  rec_id            Int    @id @default(autoincrement())
+  ingredient_name   String
+  ingredient_amount String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Recipe       Recipe @relation(fields: [recipeRec_id], references: [rec_id])
+  recipeRec_id Int
+}
+
+model RecipeStep {
+  rec_id           Int    @id @default(autoincrement())
+  step_number      Int
+  step_description String
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  Recipe       Recipe   @relation(fields: [recipeRec_id], references: [rec_id])
+  recipeRec_id Int
+}
