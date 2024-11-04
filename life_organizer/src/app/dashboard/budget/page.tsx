@@ -121,7 +121,6 @@ export default function Page() {
                 </u>
               </h3>
             </div>
-
             <div className="flex mt-10 justify-evenly w-full font-bold">
               <h3>
                 Current Pay Period:
